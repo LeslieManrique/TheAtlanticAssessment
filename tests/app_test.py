@@ -27,7 +27,6 @@ create_query = '''create temp table records(
                 timestamp DATETIME
             )
 
-
           '''
 
 class TestUploadFiles(unittest.TestCase):
@@ -53,7 +52,6 @@ class TestUploadFiles(unittest.TestCase):
     def test_upload_file(self):
         df = app_utils.read_file('ZKWDLhxw.txt')
         with self.engine.connect() as conn:
-            print(app_utils.upload_file(df, 'records', conn))
             check = conn.execute('select * from records').fetchall()
             self.assertEqual(len(check), 5)
             self.assertEqual(len(check[0]), 11)
