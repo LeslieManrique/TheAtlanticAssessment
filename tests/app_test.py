@@ -35,9 +35,7 @@ class TestUploadFiles(unittest.TestCase):
         os.chdir(CWD)
         shutil.copyfile('tests/ZKWDLhxw.txt', 'uploads/ZKWDLhxw.txt')
         app_utils.DATABASE = os.path.join(CWD, 'test.db')
-        # self.conn = sqlite3.connect(app_utils.DATABASE)
-        # self.conn.cursor().execute(create_query)
-        self.engine = app_utils.get_engine(app_utils.DATABASE)
+        self.engine = app_utils.get_engine()
         with self.engine.connect() as conn:
             conn.execute(create_query)
 
@@ -55,11 +53,10 @@ class TestUploadFiles(unittest.TestCase):
     def test_upload_file(self):
         df = app_utils.read_file('ZKWDLhxw.txt')
         with self.engine.connect() as conn:
-            print(app_utils.upload_file(df, 'test', conn))
-            check = conn.execute('select * from test').fetchall()
+            print(app_utils.upload_file(df, 'records', conn))
+            check = conn.execute('select * from records').fetchall()
             self.assertEqual(len(check), 5)
             self.assertEqual(len(check[0]), 11)
-
 
 
 
