@@ -15,6 +15,8 @@ My approach was to use sqlite3 to create a relational table that can hold the tr
 An external thread reads the files that have been uploaded and inserts them into
 the database. The external thread also removes those threads to save us space and to
 indicate the file has already been processed.
+Uploading the file is handled in the external thread to mitigate the duration of a request. If a user inserts a very large file, they will spend a long time waiting for the request to complete.
+
 Considering the fact that my time was limited there are plenty of features that I would have added. First and foremost, it was important for me to make sure that
 the file uploading was handled properly as well as inserting into the table. This is the main driver of the application and was within what I could do in 2 hours.
 
